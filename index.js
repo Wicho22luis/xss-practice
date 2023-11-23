@@ -6,7 +6,6 @@ const app = express();
 const products = ["Apple"]
 app.use(express.json());
 
-
 //app.use(xss())
 
 app.get("/search", (req, res) => {
@@ -14,8 +13,7 @@ app.get("/search", (req, res) => {
     
     const s = "Could not find product " + req.query.q;
     ind = ind.toString().replace("<!-- SEARCH -->", s);
-    //res.setHeader("Content-Security-Policy", "script-src http://localhost:8080; default-src 'self'; font-src 'self'; img-src 'self'; style-src 'self' https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css; frame-src 'self'")
-    //res.setHeader("Content-Security-Policy", "script-src 'none'")
+    //res.setHeader("Content-Security-Policy", "script-src http://localhost:8080")
     res.send(ind);
 })
 
@@ -30,8 +28,7 @@ app.get("/", (req, res) => {
         return `${a}<li class="list-group-item">${c}</li>`
     }, "")
     ind = ind.toString().replace("<!-- LIST -->", s);
-    //res.setHeader("Content-Security-Policy", "script-src http://localhost:8080; default-src 'self'; font-src 'self'; img-src 'self'; style-src 'self' https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css; frame-src 'self'")
-    //res.setHeader("Content-Security-Policy", "script-src 'none'")
+    //res.setHeader("Content-Security-Policy", "script-src http://localhost:8080")
     res.send(ind);
 })
 
