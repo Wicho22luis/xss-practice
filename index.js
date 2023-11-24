@@ -1,8 +1,7 @@
-const express = require("express");
+const express = require("express")
 const fs = require("fs")
 const app = express();
 //const xss = require("xss-clean")
-
 const products = ["Apple"]
 app.use(express.json());
 
@@ -10,12 +9,13 @@ app.use(express.json());
 
 app.get("/search", (req, res) => {
     let ind = fs.readFileSync(__dirname + "/index.html")
-    
-    const s = "Could not find product " + req.query.q;
+    const restUrl=req.query.q.replace(/<script.*>.*<\/script>/ims, " ");
+    const s = "Could not find product " + restUrl;
     ind = ind.toString().replace("<!-- SEARCH -->", s);
-    //res.setHeader("Content-Security-Policy", "script-src http://localhost:8080")
+    res.setHeader("Content-Security-Policy", "script-src http://localhost:8080")
     res.send(ind);
 })
+
 
 app.get ("/js", (req, res )=> {
     res.sendFile(__dirname + "/src.js")
@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
         return `${a}<li class="list-group-item">${c}</li>`
     }, "")
     ind = ind.toString().replace("<!-- LIST -->", s);
-    //res.setHeader("Content-Security-Policy", "script-src http://localhost:8080")
+    res.setHeader("Content-Security-Policy", "script-src http://localhost:8080")
     res.send(ind);
 })
 

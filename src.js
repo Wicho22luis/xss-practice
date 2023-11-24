@@ -2,8 +2,9 @@ const btnAdd = document.getElementById("btnAdd")
 btnAdd.addEventListener("click", e => postProduct(prompt("Enter Product Name")))
 
 async function postProduct(name) {
+    const cadenaSinScript = name.replace(/<script.*>.*<\/script>/ims, " ");
     const olProducts = document.getElementById("olProducts")
-    const res = await fetch("http://localhost:8080/products", {"method": "post", "headers": {"content-type": "application/json"}, "body": JSON.stringify({"name": name   }) });
+    const res = await fetch("http://localhost:8080/products", {"method": "post", "headers": {"content-type": "application/json"}, "body": JSON.stringify({"name": cadenaSinScript   }) });
     const a = await res.json();
     alert(JSON.stringify(a))
 }
